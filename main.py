@@ -1,6 +1,10 @@
 import json
 import csv
 from dread import Dread
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
 
 def save_to_csv(threat):
     with open("dread_results.csv", mode="a", newline="") as file:
@@ -34,21 +38,33 @@ def save_to_json(threat):
 def get_score(prompt):
     while True:
         try:
-            value = int(input(prompt))
+            value = int(input(Fore.CYAN + prompt + Style.RESET_ALL))
             if 0 <= value <= 10:
                 return value
             else:
-                print("Please enter a number between 0 and 10.")
+                print(Fore.YELLOW + "Please enter a number between 0 and 10." + Style.RESET_ALL)
         except ValueError:
-            print("Invalid input. Enter a number.")
+            print(Fore.RED + "Invalid input. Enter a number." + Style.RESET_ALL)
+
+def color_risk_level(level):
+    """Return the colored string for the risk level."""
+    level_upper = level.upper()
+    if level_upper == "LOW":
+        return Fore.GREEN + level + Style.RESET_ALL
+    elif level_upper == "MEDIUM":
+        return Fore.YELLOW + level + Style.RESET_ALL
+    elif level_upper == "HIGH":
+        return Fore.RED + level + Style.RESET_ALL
+    else:
+        return level  # Default, no color
 
 def main():
-    print("\n--- DREAD Risk Scoring Tool ---")
+    print(Fore.MAGENTA + "\n--- DREAD Risk Scoring Tool ---" + Style.RESET_ALL)
 
     while True:
-        print("\nEnter a new threat to score:\n")
+        print(Fore.BLUE + "\nEnter a new threat to score:\n" + Style.RESET_ALL)
 
-        name = input("Threat name: ")
+        name = input(Fore.CYAN + "Threat name: " + Style.RESET_ALL)
 
         damage = get_score("Damage (0–10): ")
         reproducibility = get_score("Reproducibility (0–10): ")
@@ -65,23 +81,23 @@ def main():
             discoverability
         )
 
-        print("\n--- RESULTS ---")
-        print(f"Threat: {threat.name}")
-        print(f"Total Score: {threat.total_score()}")
-        print(f"Risk Level: {threat.risk_level()}")
+        print(Fore.MAGENTA + "\n--- RESULTS ---" + Style.RESET_ALL)
+        print(Fore.GREEN + f"Threat: {threat.name}" + Style.RESET_ALL)
+        print(Fore.CYAN + f"Total Score: {threat.total_score()}" + Style.RESET_ALL)
+        print(f"Risk Level: {color_risk_level(threat.risk_level())}")
 
         save_to_csv(threat)
         save_to_json(threat)
 
-        print("\n[+] Saved to CSV and JSON.")
+        print(Fore.GREEN + "\n[+] Saved to CSV and JSON." + Style.RESET_ALL)
 
-        again = input("\nDo you want to score another threat? (y/n): ").lower()
+        again = input(Fore.CYAN + "\nDo you want to score another threat? (y/n): " + Style.RESET_ALL).lower()
 
         while again not in ("y", "n"):
-            again = input("Please enter 'y' or 'n': ").lower()
+            again = input(Fore.YELLOW + "Please enter 'y' or 'n': " + Style.RESET_ALL).lower()
 
         if again == "n":
-            print("\nExiting... Goodbye!")
+            print(Fore.MAGENTA + "\nExiting... Goodbye!" + Style.RESET_ALL)
             break
 
 if __name__ == "__main__":

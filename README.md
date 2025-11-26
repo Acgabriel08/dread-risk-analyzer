@@ -1,6 +1,6 @@
 # DREAD Risk Scoring Tool
 
-A cybersecurity threat modelling tool that calculates risk using the DREAD methodology. This project demonstrates understanding of infrastructure security, threat analysis, and risk scoring—core skills in cybersecurity engineering and SOC operations.
+A cybersecurity threat modelling tool that calculates risk using the DREAD methodology. This project demonstrates understanding of infrastructure security, threat analysis, and risk scoring core skills in cybersecurity engineering and SOC operations.
 
 ## Why This Project Matters
 Risk modelling is essential for identifying, prioritising, and mitigating cybersecurity threats. This tool shows competency in:
@@ -70,7 +70,7 @@ The total score guides organisations in prioritising mitigation strategies.
 - Add coloured CLI output and improved formatting
 
 ## Author
-Built by **Gabriel “Briel” — Cybersecurity Infrastructure Student**
+Built by **Gabriel Emenike — Cybersecurity Infrastructure Student**
 
 ## License
 MIT
